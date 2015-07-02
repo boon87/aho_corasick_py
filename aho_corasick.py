@@ -7,12 +7,13 @@ class AhoCorasick():
     def __init__(self):
         self.output = defaultdict(set)
         self.goto = defaultdict(dict)
-        self.failure = {}
+        self.failure = defaultdict(dict)
 
     def initialize(self, keywords):
         newstate = 0
         for keyword in keywords:
             newstate = self.construct_goto(keyword, newstate)
+        self.construct_failure()
 
     def construct_goto(self, keyword, newstate):
         state = 0
@@ -28,6 +29,20 @@ class AhoCorasick():
         self.output[state].add(keyword)
 
         return newstate
+
+    def construct_failure(self):
+        queue = deque()
+
+        for char, state in self.goto[0].items():
+            queue.append(state)
+            self.failure[state] = 0
+
+        while queue:
+            r = queue.pop()
+            for char, state in self.goto.get(r, {})
+            for char, state.
+
+
 
     def get_goto_state_for_build(self, state, char):
         """
